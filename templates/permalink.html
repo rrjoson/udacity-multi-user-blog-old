@@ -4,6 +4,7 @@
   {{post.render(user.key().id()) | safe}}
   {% for c in comments %}
 		{{ c.content }}
+		<a href="/blog/{{post.key().id()}}/{{user.key().id()}}/{{ c.key().id() }}/deletecomment">Delete</a>
 		<br><br>
 	{% endfor %}
 
