@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h5 class="align-left">Add Comment</h5>
+  <form method="post">
+    <label>
+      <textarea type="text" name="content">{{content}}</textarea>
+    </label>
+
+    <p>{{error}}</p>
+
+    <input type="submit">
+
+  </form>
+{% endblock %}

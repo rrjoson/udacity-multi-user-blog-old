@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CS 253 Blog</title>
+
+	<!-- Google Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+
+	<!-- CSS Reset -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+
+	<!-- Milligram CSS minified -->
+	<link rel="stylesheet" href="/static/milligram.css">
+	<style>
+		textarea {
+			height: 300px;
+		}
+		.align-center {
+			text-align: center;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="column">
+				<a href="/blog">
+					<h2 class="align-center">CS 253 Blog</h2>
+				</a>
+				{% if user %}
+					<a class="float-right" href="/logout">
+						Logout
+					</a>
+					<h6 class="float-left">Welcome, {{ user.name }}!</h6> 
+				{% else %}
+					<a class="float-right" href="/login"><button>Login</button></a>
+					<a class="float-right" href="/signup"><button>Signup</button></a>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row">
+			<div class="column">
+				{% block content %}
+				{% endblock %}
+			</div>
+		</div>
+	</div>
+</body>
+</html>

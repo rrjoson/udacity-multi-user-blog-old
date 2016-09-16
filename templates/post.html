@@ -1,0 +1,20 @@
+
+<a href="/blog/{{p.key().id()}}"><h4>{{p.subject}}</h4></a>
+<h6>{{p.created.strftime("%b %d, %Y")}}</h6>
+<p>{{p._render_text | safe}}</p>
+
+	{{p.likes}}
+
+{% if p.user_id == current_user_id %}
+
+	<a href="/delete/{{p.key().id()}}">DELETE</a>
+	<a href="/blog/{{p.key().id()}}/edit">EDIT</a>
+
+{% elif current_user_id %}
+
+	<a href="/blog/{{p.key().id()}}/like">LIKE</a>
+	<a href="/blog/{{p.key().id()}}/unlike">UNLIKE</a>
+
+{% endif %}
+
+
