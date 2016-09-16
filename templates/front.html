@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+	<a href="/blog/newpost"><button>ADD NEW POST</button></a>
 	
 	{% for p in posts %}
 		{% if user %}
@@ -10,5 +12,7 @@
 			{{ p.render(None) | safe }}
 		{% endif %}
 	{% endfor %}
+
+
 
 {% endblock %}
