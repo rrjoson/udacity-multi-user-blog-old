@@ -5,6 +5,7 @@
   {% for c in comments %}
 		{{ c.content }}
 		<a href="/blog/{{post.key().id()}}/{{user.key().id()}}/{{ c.key().id() }}/deletecomment">Delete</a>
+		<a href="/blog/{{post.key().id()}}/{{user.key().id()}}/{{ c.key().id() }}/editcomment">Edit</a>
 		<br><br>
 	{% endfor %}
 

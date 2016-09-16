@@ -407,6 +407,29 @@ class DeleteComment(BlogHandler):
             self.write("You don't have permission to delete this comment.")
 
 
+class EditComment(BlogHandler):
+    def get(self, post_id, user_id, comment_id):
+        postKey = db.Key.from_path('Post', int(post_id), parent=blog_key())
+        key = db.Key.from_path('Comment', int(comment_id), parent=postKey)
+        comment = db.get(key)
+
+        self.render('editcomment.html', content = comment.content)
+
+    def post(self, post_id, user_id, comment_id):
+        content = self.request.get('content')
+
+        postKey = db.Key.from_path('Post', int(post_id), parent=blog_key())
+        key = db.Key.from_path('Comment', int(comment_id), parent=postKey)
+        comment = db.get(key)
+
+        comment.content = content
+        comment.put()
+
+        self.redirect('/blog/' + post_id)
+
+
+
+
 
 
 app = webapp2.WSGIApplication([('/', MainPage),
@@ -426,7 +449,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/blog/([0-9]+)/unlike', UnlikePost),
                                ('/blog/([0-9]+)/([0-9]+)/addcomment', AddComment),
                                ('/blog/([0-9]+)/([0-9]+)/([0-9]+)/deletecomment', DeleteComment),
-                               # ('/blog/([0-9]+)/([0-9]+)/editcomment', EditComment)
+                               ('/blog/([0-9]+)/([0-9]+)/([0-9]+)/editcomment', EditComment)
 
                                ],
                               debug=True)
