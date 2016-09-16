@@ -113,7 +113,10 @@ class PostPage(BlogHandler):
 
 class NewPost(BlogHandler):
     def get(self):
-        self.render("newpost.html")
+        if self.user:
+            self.render("newpost.html")
+        else:
+            self.write("You don't have permission to access this page")
 
     def post(self):
         subject = self.request.get('subject')
