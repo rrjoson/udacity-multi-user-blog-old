@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-	<a href="/blog/newpost"><button>ADD NEW POST</button></a>
-	
+	{% if user %}
+		<a href="/blog/newpost"><button>ADD NEW POST</button></a>
+	{% endif %}
 	{% for p in posts %}
 		{% if user %}
 			{{ p.render(user.key().id()) | safe }}
