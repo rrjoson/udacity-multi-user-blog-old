@@ -409,11 +409,16 @@ class DeleteComment(BlogHandler):
 
 class EditComment(BlogHandler):
     def get(self, post_id, user_id, comment_id):
-        postKey = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        key = db.Key.from_path('Comment', int(comment_id), parent=postKey)
-        comment = db.get(key)
+        if self.user.key().id() == int(user_id):
+            postKey = db.Key.from_path('Post', int(post_id), parent=blog_key())
+            key = db.Key.from_path('Comment', int(comment_id), parent=postKey)
+            comment = db.get(key)
 
-        self.render('editcomment.html', content = comment.content)
+            self.render('editcomment.html', content = comment.content)
+
+        else:
+            self.write("You don't have permission to delete this comment.")
+            
 
     def post(self, post_id, user_id, comment_id):
         content = self.request.get('content')
