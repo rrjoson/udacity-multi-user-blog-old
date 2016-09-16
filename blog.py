@@ -284,11 +284,15 @@ class Welcome(BlogHandler):
 
 class Delete(BlogHandler):
     def get(self, post_id):
-        key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        post = db.get(key)
-        post.delete()
+        if self.user: 
+            key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+            post = db.get(key)
+            post.delete()
 
-        self.redirect('/blog')
+            self.redirect('/blog')
+
+        else:
+            self.write("You don't have permission to delete this post")
 
 class EditPost(BlogHandler):
     def get(self, post_id):
