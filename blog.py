@@ -85,9 +85,11 @@ class Post(db.Model):
 
     def render(self, current_user_id):
         likes = db.GqlQuery("select * from Like order by created desc limit 10")
+        key = db.Key.from_path('User', int(self.user_id), parent=users_key())
+        user = db.get(key)
 
         self._render_text = self.content.replace('\n', '<br>')
-        return render_str("post.html", p = self, current_user_id = current_user_id, likes = likes)
+        return render_str("post.html", p = self, current_user_id = current_user_id, likes = likes, author = user.name  )
 
     @classmethod
     def by_id(cls, uid):

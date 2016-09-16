@@ -1,6 +1,7 @@
 
 <a href="/blog/{{p.key().id()}}"><h4>{{p.subject}}</h4></a>
 <h6>{{p.created.strftime("%b %d, %Y")}}</h6>
+<h5>Created by: {{author}}</h5>
 <p>{{p._render_text | safe}}</p>
 
 	{{p.likes}}
