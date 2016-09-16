@@ -7,7 +7,7 @@
 
 {% if p.user_id == current_user_id %}
 
-	<a href="/delete/{{p.key().id()}}">DELETE</a>
+	<a href="/delete/{{p.key().id()}}/{{p.user_id}}">DELETE</a>
 	<a href="/blog/{{p.key().id()}}/edit">EDIT</a>
 
 {% elif current_user_id %}

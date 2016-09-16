@@ -283,8 +283,8 @@ class Welcome(BlogHandler):
             self.redirect('/unit2/signup')
 
 class Delete(BlogHandler):
-    def get(self, post_id):
-        if self.user: 
+    def get(self, post_id, post_user_id):
+        if self.user and self.user.key().id() == int(post_user_id): 
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
             post = db.get(key)
             post.delete()
@@ -295,7 +295,7 @@ class Delete(BlogHandler):
             self.write("You don't have permission to delete this post")
 
 class EditPost(BlogHandler):
-    def get(self, post_id):
+    def get(self, post_id, post_user_id):
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
 
@@ -451,7 +451,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/logout', Logout),
                                ('/signup', Register),
                                ('/login', Login),
-                               ('/delete/([0-9]+)', Delete),
+                               ('/delete/([0-9]+)/([0-9]+)', Delete),
                                ('/blog/([0-9]+)/edit', EditPost),
                                ('/blog/([0-9]+)/like', LikePost),
                                ('/blog/([0-9]+)/unlike', UnlikePost),
