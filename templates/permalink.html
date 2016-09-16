@@ -10,8 +10,11 @@
   
   {% for c in comments %}
 		{{ c.content }}
-		<a href="/blog/{{post.key().id()}}/{{c.user_id}}/{{ c.key().id() }}/deletecomment">Delete</a>
-		<a href="/blog/{{post.key().id()}}/{{c.user_id}}/{{ c.key().id() }}/editcomment">Edit</a>
+		{% if user %}
+			<a href="/blog/{{post.key().id()}}/{{c.user_id}}/{{ c.key().id() }}/deletecomment">Delete</a>
+			<a href="/blog/{{post.key().id()}}/{{c.user_id}}/{{ c.key().id() }}/editcomment">Edit</a>
+		{% endif %}
+
 		<br><br>
 	{% endfor %}
 
