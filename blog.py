@@ -295,6 +295,9 @@ class Delete(BlogHandler):
 
             self.redirect('/blog')
 
+        elif not self.user:
+            self.redirect('/login')
+
         else:
             self.write("You don't have permission to delete this post")
 
@@ -304,7 +307,9 @@ class EditPost(BlogHandler):
         post = db.get(key)
 
         if self.user and self.user.key().id() == post.user_id:
-            self.render('editpost.html', subject = post.subject, content = post.content)
+            self.render('editpost.html', subject = post.subject, content = post.content, post_id = post_id)
+        elif not self.user:
+            self.redirect('/login')
         else: 
             self.write("You cannot edit this post becuase you are not the one who wrote this post.")
 
@@ -334,11 +339,12 @@ class LikePost(BlogHandler):
         if self.user and self.user.key().id() == post.user_id:
             self.write("You cannot like your own post")
         elif not self.user:
-            self.write("You don't have permission to like this post.")
+            self.redirect('/login')
         else:
             l = Like.all().filter('user_id =', self.user.key().id()).filter('post_id =', post.key().id()).get()
             
             if l:
+                # Fix Me
                 self.redirect('/blog/')
             else: 
                 like = Like(parent = key, user_id = self.user.key().id(), post_id = post.key().id())  
@@ -347,6 +353,7 @@ class LikePost(BlogHandler):
                 like.put()
                 post.put()
 
+                # Fix Me
                 self.redirect('/blog/')
 
 class UnlikePost(BlogHandler):
@@ -357,7 +364,7 @@ class UnlikePost(BlogHandler):
         if self.user and self.user.key().id() == post.user_id:
             self.write("You cannot dislike your own post")
         elif not self.user:
-            self.write("You don't have permission to unlike this post.")
+            self.redirect('/login')
         else:
             l = Like.all().filter('user_id =', self.user.key().id()).filter('post_id =', post.key().id()).get()
 
@@ -409,6 +416,9 @@ class DeleteComment(BlogHandler):
 
             self.redirect('/blog/' + post_id)
 
+        elif not self.user:
+            self.redirect('/login')
+
         else:
             self.write("You don't have permission to delete this comment.")
 
@@ -421,6 +431,9 @@ class EditComment(BlogHandler):
             comment = db.get(key)
 
             self.render('editcomment.html', content = comment.content)
+
+        elif not self.user:
+            self.redirect('/login')
 
         else:
             self.write("You don't have permission to delete this comment.")
