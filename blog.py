@@ -509,8 +509,6 @@ class EditComment(BlogHandler):
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                ('/unit2/rot13', Rot13),
-
-
                                ('/unit2/signup', Signup),
                                ('/unit2/welcome', Welcome),
                                ('/blog/?', BlogFront),
