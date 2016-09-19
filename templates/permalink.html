@@ -8,7 +8,7 @@
 		{{ post.render(None) | safe }}
 	{% endif %}
 
-	{% if user.key().id() == post.user_id %}
+	{% if user and user.key().id() == post.user_id %}
 		<a href="/delete/{{post.key().id()}}/{{post.user_id}}">DELETE</a>
 		<a href="/blog/{{post.key().id()}}/edit">EDIT</a>
 	{% elif user %}
