@@ -299,10 +299,9 @@ class Delete(BlogHandler):
             self.write("You don't have permission to delete this post")
 
 class EditPost(BlogHandler):
-    def get(self, post_id, post_user_id):
+    def get(self, post_id):
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
-
 
         if self.user and self.user.key().id() == post.user_id:
             self.render('editpost.html', subject = post.subject, content = post.content)
